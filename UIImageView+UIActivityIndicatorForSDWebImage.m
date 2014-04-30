@@ -105,7 +105,7 @@ static char TAG_ACTIVITY_INDICATOR;
 
 - (void)setImageWithURLAnimation:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(SDWebImageOptions)options usingActivityIndicatorStyle:(UIActivityIndicatorViewStyle)activityStyle{
     
-    [self createActivityIndicatorWithStyle:activityStyle];
+    [self addActivityIndicatorWithStyle:activityStyle];
     
     __weak typeof(self) weakSelf = self;
     [self setImageWithURL:url
