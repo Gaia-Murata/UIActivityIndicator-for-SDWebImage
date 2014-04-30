@@ -103,4 +103,26 @@ static char TAG_ACTIVITY_INDICATOR;
      ];
 }
 
+- (void)setImageWithURLAnimation:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(SDWebImageOptions)options usingActivityIndicatorStyle:(UIActivityIndicatorViewStyle)activityStyle{
+    
+    [self createActivityIndicatorWithStyle:activityStyle];
+    
+    __weak typeof(self) weakSelf = self;
+    [self setImageWithURL:url
+         placeholderImage:placeholder
+                  options:options
+                completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+                    [weakSelf removeActivityIndicator];
+
+                    // [ADD] 初回読み込み時は表示アニメ
+                    if(cacheType == SDImageCacheTypeNone) {
+                        [UIView animateWithDuration:0.5f animations:^{
+                            weakSelf.alpha = 0;
+                            weakSelf.alpha = 1;
+                        }];
+                    }
+                }
+     ];
+}
+
 @end
